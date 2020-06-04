@@ -359,13 +359,21 @@ function refreshScreen() {
 
 function refreshScreenAfterSolution() {
     const screen = document.querySelector('#numberInScreen');
-    if (calculatorScreenArray.length > 0) {
+    if (calculatorScreenArray.length > 0 && calculatorScreenArray.length < 2) {
         const resoult = calculatorScreenArray.toString();
 
         screen.textContent = resoult;
 
         calculatorScreenArray = [];
-        previousResoult.push(resoult)
+        previousResoult.push(resoult);
+    } else if (calculatorScreenArray.length > 0 && calculatorScreenArray.length > 1) {
+        const resoulToString = calculatorScreenArray.toString();
+        const arrayNocoma = resoulToString.replace(/,/g, "");
+        const finalResoult = arrayNocoma.toString();
+
+        screen.textContent = finalResoult;
+        calculatorScreenArray = [];
+        previousResoult.push(finalResoult);
     } else if (calculatorScreenArray.length == 0 && previousResoult.length > 0) {
         const actualPreviousResoult = previousResoult.toString();
 
