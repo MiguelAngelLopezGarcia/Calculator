@@ -1,6 +1,6 @@
-//hacer funcionar las teclas con el teclado
-
 let calculatorScreenArray = [];
+
+let previousResoult = [];
 
 const button0 = document.querySelector('#b0');
 const button1 = document.querySelector('#b1');
@@ -20,6 +20,48 @@ const buttonMinus = document.querySelector('#minus');
 const buttonEqual = document.querySelector('#equal');
 const buttonDel = document.querySelector('#del');
 const buttonClear = document.querySelector('#clear');
+
+window.addEventListener('keydown', findCharCode);
+
+function findCharCode(e) {
+    if (e.key == 0){
+        addNumber0();
+    } else if (e.key == 1) {
+        addNumber1();
+    } else if (e.key == 2) {
+        addNumber2();
+    } else if (e.key == 3) {
+        addNumber3();
+    } else if (e.key == 4) {
+        addNumber4();
+    } else if (e.key == 5) {
+        addNumber5();
+    } else if (e.key == 6) {
+        addNumber6();
+    } else if (e.key == 7) {
+        addNumber7();
+    } else if (e.key == 8) {
+        addNumber8();
+    } else if (e.key == 9) {
+        addNumber9();
+    } else if (e.key == ".") {
+        addDot();
+    } else if (e.key == "-") {
+        addMinus();
+    } else if (e.key == "+") {
+        addSum();
+    } else if (e.key == "*") {
+        addMultiply();
+    } else if (e.key == "/") {
+        addDivide();
+    } else if (e.keyCode == 13) {
+        equal();
+    } else if (e.keyCode == 8) {
+        deleteFromArray();
+    } else if (e.keyCode == 46) {
+        clearScreen();
+    } 
+}
 
 
 button0.addEventListener('click', addNumber0);
@@ -43,66 +85,138 @@ buttonClear.addEventListener('click', clearScreen);
 
 
 function addNumber0() {
-    calculatorScreenArray.push("0");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("0");
+    } else if (calculatorScreenArray.length == 0) {
+        calculatorScreenArray.push("0", "0")
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("0");
+    }
+    
     refreshScreen();
 };
 
 function addNumber1() {
-    calculatorScreenArray.push("1");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("1");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("1");
+    }
+    
     refreshScreen();
 };
 
 function addNumber2() {
-    calculatorScreenArray.push("2");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("2");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("2");
+    }
+    
     refreshScreen();
 };
 
 function addNumber3() {
-    calculatorScreenArray.push("3");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("3");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("3");
+    }
+    
     refreshScreen();
 };
 
 function addNumber4() {
-    calculatorScreenArray.push("4");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("4");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("4");
+    }
+    
     refreshScreen();
 };
 
 function addNumber5() {
-    calculatorScreenArray.push("5");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("5");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("5");
+    }
+    
     refreshScreen();
 };
 
 function addNumber6() {
-    calculatorScreenArray.push("6");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("6");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("6");
+    }
+    
     refreshScreen();
 };
 
 function addNumber7() {
-    calculatorScreenArray.push("7");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("7");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("7");
+    }
+    
     refreshScreen();
 };
 
 function addNumber8() {
-    calculatorScreenArray.push("8");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("8");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("8");
+    }
+    
     refreshScreen();
 };
 
 function addNumber9() {
-    calculatorScreenArray.push("9");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push("9");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push("9");
+    }
+    
     refreshScreen();
 };
 
 function addDot() {
-    calculatorScreenArray.push(".");
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+        calculatorScreenArray.push(".");
+    } else if (calculatorScreenArray.length < 28) {
+        calculatorScreenArray.push(".");
+    }
+    
     refreshScreen();
 };
 
 function addDivide() {
-    if (calculatorScreenArray.length == 0) {
+    if (previousResoult.length > 0) {
+        calculatorScreenArray.push(...previousResoult);
+        calculatorScreenArray.push("/")
+        previousResoult = [];
+    } else if (calculatorScreenArray.length == 0) {
         calculatorScreenArray.push("0");
         calculatorScreenArray.push("/")
     } else if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
-    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
+    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+" && calculatorScreenArray.length < 28){
         calculatorScreenArray.pop();
         if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
     calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
@@ -111,7 +225,7 @@ function addDivide() {
         }else {
         calculatorScreenArray.push("/")
         }
-    } else {
+    } else if (calculatorScreenArray.length < 28) {
         calculatorScreenArray.push("/");
     };
 
@@ -119,11 +233,15 @@ function addDivide() {
 };
 
 function addMultiply() {
-    if (calculatorScreenArray.length == 0) {
+    if (previousResoult.length > 0) {
+        calculatorScreenArray.push(...previousResoult);
+        calculatorScreenArray.push("*")
+        previousResoult = [];
+    } else if (calculatorScreenArray.length == 0) {
         calculatorScreenArray.push("0");
         calculatorScreenArray.push("*")
     } else if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
-    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
+    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+" && calculatorScreenArray.length < 28){
         calculatorScreenArray.pop();
         if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
     calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
@@ -132,7 +250,7 @@ function addMultiply() {
         }else {
         calculatorScreenArray.push("*")
         }
-    } else {
+    } else if (calculatorScreenArray.length < 28) {
         calculatorScreenArray.push("*");
     };
 
@@ -140,11 +258,15 @@ function addMultiply() {
 };
 
 function addSum() {
-    if (calculatorScreenArray.length == 0) {
+    if (previousResoult.length > 0) {
+        calculatorScreenArray.push(...previousResoult);
+        calculatorScreenArray.push("+")
+        previousResoult = [];
+    } else if (calculatorScreenArray.length == 0) {
         calculatorScreenArray.push("0");
         calculatorScreenArray.push("+")
     } else if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
-    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
+    calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+" && calculatorScreenArray.length < 28){
         calculatorScreenArray.pop();
         if (calculatorScreenArray[calculatorScreenArray.length-1] == "/" || calculatorScreenArray[calculatorScreenArray.length-1] == "*" || 
     calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
@@ -153,7 +275,7 @@ function addSum() {
         }else {
         calculatorScreenArray.push("+")
         }
-    } else {
+    } else if (calculatorScreenArray.length < 28) {
         calculatorScreenArray.push("+");
     };
 
@@ -161,13 +283,17 @@ function addSum() {
 };
 
 function addMinus() {
-    if (calculatorScreenArray.length == 0) {
+    if (previousResoult.length > 0) {
+        calculatorScreenArray.push(...previousResoult);
+        calculatorScreenArray.push("-")
+        previousResoult = [];
+    } else if (calculatorScreenArray.length == 0) {
         calculatorScreenArray.push("0");
         calculatorScreenArray.push("-")
-    } else if (calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+"){
+    } else if (calculatorScreenArray[calculatorScreenArray.length-1] == "-" || calculatorScreenArray[calculatorScreenArray.length-1] == "+" && calculatorScreenArray.length < 28){
         calculatorScreenArray.pop();
         calculatorScreenArray.push("-")
-    } else {
+    } else if (calculatorScreenArray.length < 28) {
         calculatorScreenArray.push("-");
     };
 
@@ -179,6 +305,10 @@ function equal() {
 }
 
 function solve(array) {
+
+    while (array[array.length-1] == "-" || array[array.length-1] == "+" || array[array.length-1] == "*" || array[array.length-1] == "/") {
+        calculatorScreenArray.pop();
+    }
     
     while (array.some(hasSlash) == true) {
         solveDivision(array);
@@ -195,19 +325,21 @@ function solve(array) {
     while (array.some(hasPlus) == true) {
         solvePlus(array);
     };
-
-    console.log(calculatorScreenArray);
     
-    refreshScreen();
+    refreshScreenAfterSolution();
 };
 
 function deleteFromArray() {
+    if (previousResoult.length > 0) {
+        previousResoult = [];
+    }
     calculatorScreenArray.pop();
     refreshScreen();
 }
 
 function clearScreen() {
     calculatorScreenArray = [];
+    previousResoult = [];
     refreshScreen();
 }
 
@@ -223,6 +355,16 @@ function refreshScreen() {
     } else {
         screen.textContent = "0"
     }
+}
+
+function refreshScreenAfterSolution() {
+    const screen = document.querySelector('#numberInScreen');
+    const resoult = calculatorScreenArray.toString();
+
+    screen.textContent = resoult;
+
+    calculatorScreenArray = [];
+    previousResoult.push(resoult)
 }
 
 function solveDivision(array) {
