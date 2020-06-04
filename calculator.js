@@ -310,11 +310,11 @@ function solve(array) {
         calculatorScreenArray.pop();
     }
     
-    while (array.some(hasSlash) == true) {
+    while (array.some(isSlash) == true) {
         solveDivision(array);
     };
 
-    while (array.some(hasMultiply) == true) {
+    while (array.some(isMultiply) == true) {
         solveMultiply(array);
     };
 
@@ -322,7 +322,7 @@ function solve(array) {
         solveMinus(array);
     };
 
-    while (array.some(hasPlus) == true) {
+    while (array.some(isPlus) == true) {
         solvePlus(array);
     };
     
@@ -486,16 +486,16 @@ function findPreviousSymbol(array, endNumber) {
     };
 };
 
-function hasPlus(word) {
-    return word.includes("+");
+function isPlus(word) {
+    return word == "+";
 };
 
-function hasMultiply(word) {
-    return word.includes("*");
+function isMultiply(word) {
+    return word == "*";
 };
 
-function hasSlash(word) {
-    return word.includes("/");
+function isSlash(word) {
+    return word == "/";
 };
 
 function isMinus(word) {
