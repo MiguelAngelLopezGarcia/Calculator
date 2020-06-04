@@ -359,12 +359,20 @@ function refreshScreen() {
 
 function refreshScreenAfterSolution() {
     const screen = document.querySelector('#numberInScreen');
-    const resoult = calculatorScreenArray.toString();
+    if (calculatorScreenArray.length > 0) {
+        const resoult = calculatorScreenArray.toString();
 
-    screen.textContent = resoult;
+        screen.textContent = resoult;
 
-    calculatorScreenArray = [];
-    previousResoult.push(resoult)
+        calculatorScreenArray = [];
+        previousResoult.push(resoult)
+    } else if (calculatorScreenArray.length == 0 && previousResoult.length > 0) {
+        const actualPreviousResoult = previousResoult.toString();
+
+        screen.textContent = actualPreviousResoult;
+    } else if (calculatorScreenArray.length == 0 && previousResoult.length == 0) {
+        screen.textContent = "0";
+    }
 }
 
 function solveDivision(array) {
@@ -428,10 +436,14 @@ function solveMinus(array) {
     const newMinusIndex = sliceArray.indexOf("-");
     const firstNumber = sliceArray.slice(0, newMinusIndex);
     const firstNumberString = firstNumber.toString();
-    const firstNumberInt = parseFloat(firstNumberString);
+    const arrayFristNumber = firstNumberString.replace(/,/g, "");
+    const firstNumberStringNoComa = arrayFristNumber.toString();
+    const firstNumberInt = parseFloat(firstNumberStringNoComa);
     const secondNumber = sliceArray.slice((newMinusIndex+1), sliceArray.length);
     const secondNumberString = secondNumber.toString();
-    const secondNumberInt = parseFloat(secondNumberString);
+    const arraySecondNumber = secondNumberString.replace(/,/g, "");
+    const secondNumberStringNoComa = arraySecondNumber.toString();
+    const secondNumberInt = parseFloat(secondNumberStringNoComa);
 
 
     const resoult = firstNumberInt - secondNumberInt;
