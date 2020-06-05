@@ -64,24 +64,24 @@ function findCharCode(e) {
 }
 
 
-button0.addEventListener('click', addNumber0);
-button1.addEventListener('click', addNumber1);
-button2.addEventListener('click', addNumber2);
-button3.addEventListener('click', addNumber3);
-button4.addEventListener('click', addNumber4);
-button5.addEventListener('click', addNumber5);
-button6.addEventListener('click', addNumber6);
-button7.addEventListener('click', addNumber7);
-button8.addEventListener('click', addNumber8);
-button9.addEventListener('click', addNumber9);
-buttonDot.addEventListener('click', addDot);
-buttonDivide.addEventListener('click', addDivide);
-buttonMultiply.addEventListener('click', addMultiply);
-buttonSum.addEventListener('click', addSum);
-buttonMinus.addEventListener('click', addMinus);
-buttonEqual.addEventListener('click', equal);
-buttonDel.addEventListener('click', deleteFromArray);
-buttonClear.addEventListener('click', clearScreen);
+button0.addEventListener('mousedown', addNumber0);
+button1.addEventListener('mousedown', addNumber1);
+button2.addEventListener('mousedown', addNumber2);
+button3.addEventListener('mousedown', addNumber3);
+button4.addEventListener('mousedown', addNumber4);
+button5.addEventListener('mousedown', addNumber5);
+button6.addEventListener('mousedown', addNumber6);
+button7.addEventListener('mousedown', addNumber7);
+button8.addEventListener('mousedown', addNumber8);
+button9.addEventListener('mousedown', addNumber9);
+buttonDot.addEventListener('mousedown', addDot);
+buttonDivide.addEventListener('mousedown', addDivide);
+buttonMultiply.addEventListener('mousedown', addMultiply);
+buttonSum.addEventListener('mousedown', addSum);
+buttonMinus.addEventListener('mousedown', addMinus);
+buttonEqual.addEventListener('mousedown', equal);
+buttonDel.addEventListener('mousedown', deleteFromArray);
+buttonClear.addEventListener('mousedown', clearScreen);
 
 
 function addNumber0() {
@@ -197,10 +197,13 @@ function addNumber9() {
 };
 
 function addDot() {
-    if (previousResoult.length > 0) {
+    const checkForDots = findDot();
+    if (checkForDots == true) {
+        return
+    } else if (checkForDots == false && previousResoult.length > 0) {
         previousResoult = [];
         calculatorScreenArray.push(".");
-    } else if (calculatorScreenArray.length < 28) {
+    } else if (checkForDots == false && calculatorScreenArray.length < 28) {
         calculatorScreenArray.push(".");
     }
     
@@ -504,6 +507,35 @@ function findPreviousSymbol(array, endNumber) {
     } else {
         return 0;
     };
+};
+
+function findDot() {
+    const newArray = calculatorScreenArray.slice(0, calculatorScreenArray.length)
+    const reversedArray = newArray.reverse();
+    const checkDot = reversedArray.indexOf(".");
+    
+    if (checkDot == -1) {
+        return false;
+    } else if (checkDot !== -1) {
+        const slashNumber = reversedArray.indexOf("/");
+        const multiplyNumber = reversedArray.indexOf("*");
+        const sumNumber = reversedArray.indexOf("+");
+        const minusNumber = reversedArray.indexOf("-");
+
+        if (slashNumber > 0 && checkDot < slashNumber) {
+            return true;
+        } else if (multiplyNumber > 0 && checkDot < multiplyNumber) {
+            return true;
+        } else if (sumNumber > 0 && checkDot < sumNumber) {
+            return true;
+        } else if (minusNumber > 0 && checkDot < minusNumber) {
+            return true;
+        } else  if (multiplyNumber < 0 && sumNumber < 0 && minusNumber < 0 && slashNumber < 0) {
+            return true
+        } else {
+            return false
+        }
+    }
 };
 
 function isPlus(word) {
